@@ -76,4 +76,16 @@ if (cachedData) {
 
 ```
 
+## Cloner le projet a cette adresse:
+` https://github.com/Hassan-mahamat/poc-weather `
+
+## exécution du projet:
+se placer dans le repertoire du projet:
+
+` npm i `
+` npm run start ` 
+
+Une fois le serveur lancé, votre navigateur vous demandera l'autorisation qu'il faut autoriser.
+
+
 Gestion des erreurs : En cas d'erreur lors de la récupération des données ou si les données ne sont pas disponibles dans le cache, des messages d'erreur sont affichés à l'utilisateur.
