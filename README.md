@@ -1,46 +1,79 @@
-# Getting Started with Create React App
+# Application Météo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+Cette application affiche les informations météorologiques en fonction des coordonnées géographiques du navigateur de l’utilisateur, en utilisant l'API OpenWeatherMap. L'application est construite avec React et TypeScript.
 
-In the project directory, you can run:
+## Fonctionnalités
 
-### `npm start`
+Affichage des informations météorologiques : température, conditions, humidité, et vitesse du vent.
+Gestion de la réactivité pour s'adapter aux différents types d'appareils (PC, smartphones, etc.).
+Mise en cache des données pour minimiser le nombre de requêtes API et respecter les limites d'utilisation de l'API.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Responsivité
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Pour rendre l'application responsive, j'ai utilisé les media queries dans le fichier CSS. Voici les principales modifications apportées :
 
-### `npm test`
+    Utilisation de max-width et width : La largeur du conteneur de la météo est fixée à 90% de l'écran avec une largeur maximale de 500px pour les grands écrans. Cela garantit que l'interface est bien adaptée aux écrans larges tout en restant utilisable sur des écrans plus petits.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    Ajustement des tailles de police : Les tailles de police sont réduites pour les petits écrans afin d'améliorer la lisibilité et l'apparence générale de l'application sur les smartphones.
 
-### `npm run build`
+    Espacements et padding : Les marges et les espacements sont ajustés pour les petits écrans afin d'éviter le débordement et d'améliorer la présentation.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Voici un extrait du fichier CSS pour illustrer la réactivité :
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```css
+.weatherContainer {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 90%;
+  max-width: 500px;
+  margin: 20px auto;
+  text-align: center;
+}
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+@media (max-width: 600px) {
+  .temp {
+    font-size: 1.5em;
+  }
 
-### `npm run eject`
+  .description {
+    font-size: 0.9em;
+  }
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+  .weatherContainer {
+    padding: 15px;
+  }
+}
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Gestion du Cache
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Pour optimiser l'utilisation de l'API OpenWeatherMap et réduire le nombre de requêtes, un système de cache a été mis en place en utilisant le localStorage. Voici comment cela fonctionne :
 
-## Learn More
+Stockage des données : Après avoir récupéré les données météo avec succès, celles-ci sont stockées dans le localStorage sous la clé weatherData.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```typescript
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+
+```
+
+Chargement depuis le cache : Lors du chargement du composant, le cache est vérifié. Si des données sont présentes, elles sont utilisées directement, évitant ainsi une nouvelle requête à l'API.
+
+```typescript
+
+const cachedData = localStorage.getItem(CACHE_KEY);
+if (cachedData) {
+  setWeatherData(JSON.parse(cachedData));
+  setLoading(false);
+} else {
+  getLocation();
+}
+
+```
+
+Gestion des erreurs : En cas d'erreur lors de la récupération des données ou si les données ne sont pas disponibles dans le cache, des messages d'erreur sont affichés à l'utilisateur.
