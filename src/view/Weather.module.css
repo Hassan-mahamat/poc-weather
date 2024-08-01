@@ -1,0 +1,93 @@
+.weatherContainer {
+    background: #4184aa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(15, 5, 160, 0.1);
+    padding: 20px;
+    width: 90%;
+    max-width: 500px; /* Largeur maximale pour les écrans plus larges */
+    margin: 20px auto;
+    text-align: center;
+  }
+  
+  .title {
+    margin-top: 0;
+    color: white;
+  }
+  
+  .nameLabel {
+    color: white;
+  }
+  
+  .name {
+    margin-top: 0;
+    color: white;
+    display: inline-block;
+    padding: 5px 10px;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .temp {
+    font-size: 2em;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .description {
+    color: white;
+  }
+  
+  .loading,
+  .error {
+    text-align: center;
+    font-size: 1.2em;
+    color: #ff4d4d;
+  }
+  
+  .weatherDetails {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .detailItem {
+    flex: 1;
+    margin: 0 10px;
+    text-align: center;
+  }
+  
+  .detailValue {
+    font-size: 1.5em;
+    color: white;
+    margin: 0;
+  }
+  
+  .detailLabel {
+    color: white;
+    margin: 5px 0 0 0;
+  }
+  
+  /* Media queries pour les petits écrans */
+  @media (max-width: 600px) {
+    .temp {
+      font-size: 1.5em;
+    }
+  
+    .description {
+      font-size: 0.9em;
+    }
+  
+    .weatherContainer {
+      padding: 15px;
+    }
+  
+    .weatherDetails {
+      flex-direction: column;
+    }
+  
+    .detailItem {
+      margin: 10px 0;
+    }
+  }
+  
